@@ -459,7 +459,7 @@ func main() {
 	for !rl.WindowShouldClose() {
 		g.Update()
 		rl.BeginDrawing()
-		rl.ClearBackground(rl.RayWhite)
+		rl.ClearBackground(rl.White)
 		g.Draw()
 		rl.EndDrawing()
 	}
