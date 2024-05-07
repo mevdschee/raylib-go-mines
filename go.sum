@@ -1,0 +1,4 @@
+github.com/expr-lang/expr v1.16.5 h1:m2hvtguFeVaVNTHj8L7BoAyt7O0PAIBaSVbjdHgRXMs=
+github.com/expr-lang/expr v1.16.5/go.mod h1:uCkhfG+x7fcZ5A5sXHKuQ07jGZRl6J0FCAaf2k4PtVQ=
+github.com/gen2brain/raylib-go v0.0.0-20200504161950-7ab77a47307b h1:9ohp/Bw+lbuv/oo756g4Niv0rfUL21JEBfzW2rK6whg=
+github.com/gen2brain/raylib-go v0.0.0-20200504161950-7ab77a47307b/go.mod h1:LUVRDQbnxUaOgzLzW5lMS+IcbqlXHIqIA9wq8wxzmcA=
