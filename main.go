@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	_ "embed"
+	"image/png"
 	"log"
 	"math/rand"
 	"time"
@@ -449,10 +451,10 @@ func main() {
 	width, height := g.getSize()
 	rl.InitWindow(int32(g.c.scale*width), int32(g.c.scale*height), "Raylib Go Mines")
 	rl.SetTargetFPS(30)
-	//icon, err := png.Decode(bytes.NewReader(minesIconImage))
-	//if err == nil {
-	//	ebiten.SetWindowIcon([]image.Image{icon})
-	//}
+	icon, err := png.Decode(bytes.NewReader(minesIconImage))
+	if err == nil {
+		rl.SetWindowIcon(*rl.NewImageFromImage(icon))
+	}
 
 	for !rl.WindowShouldClose() {
 		g.Update()
