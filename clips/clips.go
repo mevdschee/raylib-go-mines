@@ -9,11 +9,12 @@ import (
 
 // Clip is a set of frames
 type Clip struct {
+	texture          rl.Texture2D
 	name             string
 	x, y             float32
 	width, height    float32
 	frame            int
-	frames           []rl.Texture2D
+	frames           []rl.Rectangle
 	onPress          func()
 	onLongPress      func()
 	onRelease        func()
@@ -36,7 +37,7 @@ func (c *Clip) GetName() string {
 
 // New creates a new sprite based clip
 func New(sprite *sprites.Sprite, name string, x, y int) *Clip {
-	frames := []rl.Texture2D{}
+	frames := []rl.Rectangle{}
 
 	srcWidth, srcHeight := sprite.Width, sprite.Height
 	for i := 0; i < sprite.Count; i++ {
@@ -47,27 +48,24 @@ func New(sprite *sprites.Sprite, name string, x, y int) *Clip {
 		srcX := sprite.X + (i%grid)*(srcWidth+sprite.Gap)
 		srcY := sprite.Y + (i/grid)*(srcHeight+sprite.Gap)
 		r := rl.NewRectangle(float32(srcX), float32(srcY), float32(srcWidth), float32(srcHeight))
-		frame := rl.NewImageFromImage(sprite.Image)
-		rl.ImageCrop(frame, r)
-		frames = append(frames, rl.LoadTextureFromImage(frame))
-		rl.UnloadImage(frame)
+		frames = append(frames, r)
 	}
 
 	return &Clip{
-		name:   name,
-		x:      float32(x),
-		y:      float32(y),
-		width:  float32(srcWidth),
-		height: float32(srcHeight),
-		frame:  0,
-		frames: frames,
+		texture: sprite.Texture,
+		name:    name,
+		x:       float32(x),
+		y:       float32(y),
+		width:   float32(srcWidth),
+		height:  float32(srcHeight),
+		frame:   0,
+		frames:  frames,
 	}
 }
 
 // NewScaled creates a new 9 slice scaled sprite based clip
 func NewScaled(sprite *sprites.Sprite, name string, x, y, width, height int) *Clip {
 	frame0 := rl.NewImageFromImage(image.NewNRGBA(image.Rect(0, 0, width, height)))
-	srcImage := rl.NewImageFromImage(sprite.Image)
 
 	srcY := sprite.Y
 	dstY := 0
@@ -88,7 +86,7 @@ func NewScaled(sprite *sprites.Sprite, name string, x, y, width, height int) *Cl
 
 			srcRect := rl.NewRectangle(float32(srcX), float32(srcY), float32(srcWidth), float32(srcHeight))
 			dstRect := rl.NewRectangle(float32(dstX), float32(dstY), float32(dstWidth), float32(dstHeight))
-			rl.ImageDraw(frame0, srcImage, srcRect, dstRect, rl.White)
+			rl.ImageDraw(frame0, sprite.Image, srcRect, dstRect, rl.White)
 			srcX += srcWidth + sprite.Gap
 			dstX += dstWidth
 		}
@@ -96,25 +94,26 @@ func NewScaled(sprite *sprites.Sprite, name string, x, y, width, height int) *Cl
 		dstY += dstHeight
 	}
 
-	frames := []rl.Texture2D{rl.LoadTextureFromImage(frame0)}
+	frames := []rl.Rectangle{rl.NewRectangle(0, 0, float32(width), float32(height))}
+	texture := rl.LoadTextureFromImage(frame0)
 	rl.UnloadImage(frame0)
-	rl.UnloadImage(srcImage)
 
 	return &Clip{
-		name:   name,
-		x:      float32(x),
-		y:      float32(y),
-		width:  float32(width),
-		height: float32(height),
-		frame:  0,
-		frames: frames,
+		texture: texture,
+		name:    name,
+		x:       float32(x),
+		y:       float32(y),
+		width:   float32(width),
+		height:  float32(height),
+		frame:   0,
+		frames:  frames,
 	}
 }
 
 // Draw draws the clip
 func (c *Clip) Draw(scale float32) {
 	img := c.frames[c.frame]
-	rl.DrawTextureEx(img, rl.NewVector2(c.x*scale, c.y*scale), 0, scale, rl.White)
+	rl.DrawTexturePro(c.texture, img, rl.NewRectangle(c.x*scale, c.y*scale, c.width*scale, c.height*scale), rl.NewVector2(0, 0), 0, rl.White)
 }
 
 // GotoFrame goes to a frame of the clip
