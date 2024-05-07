@@ -35,7 +35,7 @@ func (c *Clip) GetName() string {
 }
 
 // New creates a new sprite based clip
-func New(sprite *sprites.Sprite, name string, x, y float32) *Clip {
+func New(sprite *sprites.Sprite, name string, x, y int) *Clip {
 	frames := []rl.Texture2D{}
 
 	srcWidth, srcHeight := sprite.Width, sprite.Height
@@ -55,8 +55,8 @@ func New(sprite *sprites.Sprite, name string, x, y float32) *Clip {
 
 	return &Clip{
 		name:   name,
-		x:      x,
-		y:      y,
+		x:      float32(x),
+		y:      float32(y),
 		width:  float32(srcWidth),
 		height: float32(srcHeight),
 		frame:  0,
@@ -112,9 +112,9 @@ func NewScaled(sprite *sprites.Sprite, name string, x, y, width, height int) *Cl
 }
 
 // Draw draws the clip
-func (c *Clip) Draw() {
+func (c *Clip) Draw(scale float32) {
 	img := c.frames[c.frame]
-	rl.DrawTextureEx(img, rl.NewVector2(c.x, c.y), 0, 1, rl.White)
+	rl.DrawTextureEx(img, rl.NewVector2(c.x*scale, c.y*scale), 0, scale, rl.White)
 }
 
 // GotoFrame goes to a frame of the clip
@@ -145,9 +145,9 @@ func (c *Clip) OnReleaseOutside(handler func()) {
 }
 
 // IsHovered returns whether or not the cursor is hovering the clip
-func (c *Clip) IsHovered() bool {
+func (c *Clip) IsHovered(scale float32) bool {
 	cursor := rl.GetMousePosition()
-	rect := rl.NewRectangle(c.x, c.y, c.width, c.height)
+	rect := rl.NewRectangle(c.x*scale, c.y*scale, c.width*scale, c.height*scale)
 	return rl.CheckCollisionPointRec(cursor, rect)
 }
 
@@ -168,8 +168,8 @@ func (c *Clip) IsHovered() bool {
 // }
 
 // Update updates the clip
-func (c *Clip) Update() (err error) {
-	hover := c.IsHovered()
+func (c *Clip) Update(scale float32) (err error) {
+	hover := c.IsHovered(scale)
 
 	if c.onPress != nil {
 		if hover && rl.IsMouseButtonPressed(rl.MouseLeftButton) {

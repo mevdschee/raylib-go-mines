@@ -82,7 +82,7 @@ func FromJSON(spriteMap sprites.SpriteMap, layerJSON LayerJSON, parameters map[s
 				return nil, fmt.Errorf("Height in '%s': %v", clipJSON.Height, err)
 			}
 			if width == 0 {
-				layer.Add(clips.New(sprite, clipJSON.Name, float32(x), float32(y)))
+				layer.Add(clips.New(sprite, clipJSON.Name, x, y))
 			} else {
 				layer.Add(clips.NewScaled(sprite, clipJSON.Name, x, y, width, height))
 			}
@@ -97,16 +97,16 @@ func (l *Layer) Add(clip *clips.Clip) {
 }
 
 // Draw draws the layer
-func (l *Layer) Draw() {
+func (l *Layer) Draw(scale float32) {
 	for _, clip := range l.clips {
-		clip.Draw()
+		clip.Draw(scale)
 	}
 }
 
 // Update updates the layer
-func (l *Layer) Update() (err error) {
+func (l *Layer) Update(scale float32) (err error) {
 	for _, clip := range l.clips {
-		err = clip.Update()
+		err = clip.Update(scale)
 		if err != nil {
 			break
 		}

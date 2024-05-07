@@ -53,16 +53,16 @@ func (m *Movie) Add(scene *scenes.Scene) {
 }
 
 // Draw draws the movie
-func (m *Movie) Draw() {
+func (m *Movie) Draw(scale float32) {
 	if m.currentScene != nil {
-		m.currentScene.Draw()
+		m.currentScene.Draw(scale)
 	}
 }
 
 // Update updates the movie
-func (m *Movie) Update() (err error) {
+func (m *Movie) Update(scale float32) (err error) {
 	if m.currentScene != nil {
-		err = m.currentScene.Update()
+		err = m.currentScene.Update(scale)
 	}
 	return err
 }

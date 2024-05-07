@@ -393,11 +393,11 @@ func (g *game) Update() error {
 		}
 	}
 	//touch.UpdateTouchIDs()
-	return g.movie.Update()
+	return g.movie.Update(float32(g.c.scale))
 }
 
 func (g *game) Draw() {
-	g.movie.Draw()
+	g.movie.Draw(float32(g.c.scale))
 }
 
 func newGame(c config) *game {
@@ -439,7 +439,7 @@ func (g *game) placeBombs(x, y, bombs int) {
 
 func main() {
 	g := newGame(config{
-		scale:   1,
+		scale:   2,
 		width:   9,
 		height:  9,
 		bombs:   10,
