@@ -111,9 +111,10 @@ func NewScaled(sprite *sprites.Sprite, name string, x, y, width, height int) *Cl
 }
 
 // Draw draws the clip
-func (c *Clip) Draw(scale float32) {
+func (c *Clip) Draw(scale int) {
+	s := float32(scale)
 	img := c.frames[c.frame]
-	rl.DrawTexturePro(c.texture, img, rl.NewRectangle(c.x*scale, c.y*scale, c.width*scale, c.height*scale), rl.NewVector2(0, 0), 0, rl.White)
+	rl.DrawTexturePro(c.texture, img, rl.NewRectangle(c.x*s, c.y*s, c.width*s, c.height*s), rl.NewVector2(0, 0), 0, rl.White)
 }
 
 // GotoFrame goes to a frame of the clip
@@ -144,9 +145,10 @@ func (c *Clip) OnReleaseOutside(handler func()) {
 }
 
 // IsHovered returns whether or not the cursor is hovering the clip
-func (c *Clip) IsHovered(scale float32) bool {
+func (c *Clip) IsHovered(scale int) bool {
+	s := float32(scale)
 	cursor := rl.GetMousePosition()
-	rect := rl.NewRectangle(c.x*scale, c.y*scale, c.width*scale, c.height*scale)
+	rect := rl.NewRectangle(c.x*s, c.y*s, c.width*s, c.height*s)
 	return rl.CheckCollisionPointRec(cursor, rect)
 }
 
@@ -167,7 +169,7 @@ func (c *Clip) IsHovered(scale float32) bool {
 // }
 
 // Update updates the clip
-func (c *Clip) Update(scale float32) (err error) {
+func (c *Clip) Update(scale int) (err error) {
 	hover := c.IsHovered(scale)
 
 	if c.onPress != nil {

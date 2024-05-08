@@ -65,14 +65,14 @@ func (s *Scene) Add(layer *layers.Layer) {
 }
 
 // Draw draws the scene
-func (s *Scene) Draw(scale float32) {
+func (s *Scene) Draw(scale int) {
 	for _, name := range s.order {
 		s.layers[name].Draw(scale)
 	}
 }
 
 // Update updates the scene
-func (s *Scene) Update(scale float32) (err error) {
+func (s *Scene) Update(scale int) (err error) {
 	for _, name := range s.order {
 		err = s.layers[name].Update(scale)
 		if err != nil {

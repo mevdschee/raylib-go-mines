@@ -377,7 +377,7 @@ func (g *game) setTiles() {
 	}
 }
 
-func (g *game) Update() error {
+func (g *game) Update(scale int) error {
 	if g.movie == nil {
 		g.init()
 		g.setHandlers()
@@ -395,11 +395,11 @@ func (g *game) Update() error {
 		}
 	}
 	//touch.UpdateTouchIDs()
-	return g.movie.Update(float32(g.c.scale))
+	return g.movie.Update(scale)
 }
 
-func (g *game) Draw() {
-	g.movie.Draw(float32(g.c.scale))
+func (g *game) Draw(scale int) {
+	g.movie.Draw(scale)
 }
 
 func newGame(c config) *game {
@@ -457,10 +457,10 @@ func main() {
 	}
 
 	for !rl.WindowShouldClose() {
-		g.Update()
+		g.Update(g.c.scale)
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.White)
-		g.Draw()
+		g.Draw(g.c.scale)
 		rl.EndDrawing()
 	}
 

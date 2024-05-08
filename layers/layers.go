@@ -97,14 +97,14 @@ func (l *Layer) Add(clip *clips.Clip) {
 }
 
 // Draw draws the layer
-func (l *Layer) Draw(scale float32) {
+func (l *Layer) Draw(scale int) {
 	for _, clip := range l.clips {
 		clip.Draw(scale)
 	}
 }
 
 // Update updates the layer
-func (l *Layer) Update(scale float32) (err error) {
+func (l *Layer) Update(scale int) (err error) {
 	for _, clip := range l.clips {
 		err = clip.Update(scale)
 		if err != nil {
