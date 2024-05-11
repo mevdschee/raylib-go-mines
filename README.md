@@ -4,7 +4,7 @@ Implementation of minesweeper in Go using the Raylib game library.
 
 ### Requirements
 
-On Deian based systems: 
+On Debian based systems: 
 
     apt-get install libgl1-mesa-dev libxi-dev libxcursor-dev libxrandr-dev libxinerama-dev libwayland-dev libxkbcommon-dev
 
