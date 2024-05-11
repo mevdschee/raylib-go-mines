@@ -1,4 +1,4 @@
-# Raylib Mines (Go)
+# Raylib Go Mines
 
 Implementation of minesweeper in Go using the Raylib game library.
 
