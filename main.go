@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"time"
 
+	gui "github.com/gen2brain/raylib-go/raygui"
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/mevdschee/raylib-go-mines/clips"
 	"github.com/mevdschee/raylib-go-mines/movies"
@@ -447,6 +448,8 @@ func main() {
 		bombs:   10,
 		holding: 15,
 	})
+	menu := true
+	scale := g.c.scale
 	g.restart()
 	width, height := g.getSize()
 	rl.InitWindow(int32(g.c.scale*width), int32(g.c.scale*height), "Raylib Go Mines")
@@ -457,10 +460,60 @@ func main() {
 	}
 
 	for !rl.WindowShouldClose() {
-		g.Update(g.c.scale)
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.White)
-		g.Draw(g.c.scale)
+		if menu {
+			gui.SetStyleProperty(gui.GlobalTextFontsize, int64(g.c.scale*10))
+			w := float32(g.c.scale * width)
+			h := float32(g.c.scale * height)
+			m := float32(g.c.scale * 5)
+			cy := m
+			row := float32(g.c.scale * 20)
+			beginner := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Beginner")
+			if beginner {
+				g.c.height = 9
+				g.c.width = 9
+				g.c.bombs = 10
+			}
+			cy += row + m/2
+			intermediate := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Intermediate")
+			if intermediate {
+				g.c.height = 16
+				g.c.width = 16
+				g.c.bombs = 40
+			}
+			cy += row + m/2
+			expert := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Expert")
+			if expert {
+				g.c.height = 16
+				g.c.width = 30
+				g.c.bombs = 99
+			}
+			cy += row + m + m
+			gui.Label(rl.NewRectangle(m, cy, 0, row), "Scale:")
+			scale = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), scale, 1, 6)
+			cy += row + m
+			gui.Label(rl.NewRectangle(m, cy, 0, row), "Height:")
+			g.c.height = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.height, 9, 50)
+			cy += row + m
+			gui.Label(rl.NewRectangle(m, cy, 0, row), "Width:")
+			g.c.width = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.width, 9, 100)
+			cy += row + m
+			gui.Label(rl.NewRectangle(m, cy, 0, row), "Bombs:")
+			g.c.bombs = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.bombs, 1, 999)
+			start := gui.Button(rl.NewRectangle(m, h-m-row, w-2*m, row), "Start")
+			if start {
+				g.c.scale = scale
+				g.restart()
+				width, height := g.getSize()
+				rl.SetWindowSize(g.c.scale*width, g.c.scale*height)
+				rl.SetWindowPosition((rl.GetMonitorWidth(0)-g.c.scale*width)/2, (rl.GetMonitorHeight(0)-g.c.scale*height)/2)
+				menu = false
+			}
+		} else {
+			g.Update(g.c.scale)
+			g.Draw(g.c.scale)
+		}
 		rl.EndDrawing()
 	}
 
