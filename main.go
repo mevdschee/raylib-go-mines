@@ -441,18 +441,18 @@ func (g *game) placeBombs(x, y, bombs int) {
 }
 
 func main() {
-	g := newGame(config{
+	c := config{
 		scale:   2,
 		width:   9,
 		height:  9,
 		bombs:   10,
 		holding: 15,
-	})
+	}
+	g := newGame(c)
 	menu := true
-	scale := g.c.scale
 	g.restart()
 	width, height := g.getSize()
-	rl.InitWindow(int32(g.c.scale*width), int32(g.c.scale*height), "Raylib Go Mines")
+	rl.InitWindow(int32(c.scale*width), int32(c.scale*height), "Raylib Go Mines")
 	rl.SetTargetFPS(30)
 	icon, err := png.Decode(bytes.NewReader(minesIconImage))
 	if err == nil {
@@ -471,39 +471,39 @@ func main() {
 			row := float32(g.c.scale * 20)
 			beginner := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Beginner")
 			if beginner {
-				g.c.height = 9
-				g.c.width = 9
-				g.c.bombs = 10
+				c.height = 9
+				c.width = 9
+				c.bombs = 10
 			}
 			cy += row + m/2
 			intermediate := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Intermediate")
 			if intermediate {
-				g.c.height = 16
-				g.c.width = 16
-				g.c.bombs = 40
+				c.height = 16
+				c.width = 16
+				c.bombs = 40
 			}
 			cy += row + m/2
 			expert := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Expert")
 			if expert {
-				g.c.height = 16
-				g.c.width = 30
-				g.c.bombs = 99
+				c.height = 16
+				c.width = 30
+				c.bombs = 99
 			}
 			cy += row + m + m
 			gui.Label(rl.NewRectangle(m, cy, 0, row), "Scale:")
-			scale = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), scale, 1, 6)
+			c.scale = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.scale, 1, 6)
 			cy += row + m
 			gui.Label(rl.NewRectangle(m, cy, 0, row), "Height:")
-			g.c.height = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.height, 9, 50)
+			c.height = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.height, 9, 50)
 			cy += row + m
 			gui.Label(rl.NewRectangle(m, cy, 0, row), "Width:")
-			g.c.width = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.width, 9, 100)
+			c.width = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.width, 9, 100)
 			cy += row + m
 			gui.Label(rl.NewRectangle(m, cy, 0, row), "Bombs:")
-			g.c.bombs = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), g.c.bombs, 1, 999)
+			c.bombs = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.bombs, 1, 999)
 			start := gui.Button(rl.NewRectangle(m, h-m-row, w-2*m, row), "Start")
 			if start {
-				g.c.scale = scale
+				g.c = c
 				g.restart()
 				width, height := g.getSize()
 				rl.SetWindowSize(g.c.scale*width, g.c.scale*height)
