@@ -106,6 +106,8 @@ const (
 
 var clipCache map[string][]*clips.Clip
 
+var version string
+
 func (g *game) getSize() (int, int) {
 	return g.c.width*16 + 12*2, g.c.height*16 + 11*3 + 33
 }
@@ -441,6 +443,7 @@ func (g *game) placeBombs(x, y, bombs int) {
 }
 
 func main() {
+	title := "Raylib Go Mines " + version
 	c := config{
 		scale:   2,
 		width:   9,
@@ -452,7 +455,7 @@ func main() {
 	menu := true
 	g.restart()
 	width, height := g.getSize()
-	rl.InitWindow(int32(c.scale*width), int32(c.scale*height), "Raylib Go Mines")
+	rl.InitWindow(int32(c.scale*width), int32(c.scale*height), title)
 	rl.SetTargetFPS(30)
 	icon, err := png.Decode(bytes.NewReader(minesIconImage))
 	if err == nil {
@@ -469,7 +472,7 @@ func main() {
 			m := float32(g.c.scale * 5)
 			cy := m
 			row := float32(g.c.scale * 20)
-			gui.Label(rl.NewRectangle(m, cy, w-2*m, row), "Raylib Go Mines")
+			gui.Label(rl.NewRectangle(m, cy, w-2*m, row), title)
 			cy += row + m
 			beginner := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Beginner")
 			if beginner {
