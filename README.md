@@ -2,6 +2,10 @@
 
 Implementation of minesweeper in Go using the Raylib game library.
 
+![menu](screenshot_menu.png)
+
+![game](screenshot_game.png)
+
 ### Requirements
 
 On Debian based systems: 
