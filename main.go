@@ -469,6 +469,8 @@ func main() {
 			m := float32(g.c.scale * 5)
 			cy := m
 			row := float32(g.c.scale * 20)
+			gui.Label(rl.NewRectangle(m, cy, w-2*m, row), "Raylib Go Mines")
+			cy += row + m
 			beginner := gui.Button(rl.NewRectangle(m, cy, w-2*m, row), "Beginner")
 			if beginner {
 				c.height = 9
@@ -490,9 +492,9 @@ func main() {
 				c.bombs = 99
 			}
 			cy += row + m + m
-			gui.Label(rl.NewRectangle(m, cy, 0, row), "Scale:")
-			c.scale = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.scale, 1, 6)
-			cy += row + m
+			//gui.Label(rl.NewRectangle(m, cy, 0, row), "Scale:")
+			//c.scale = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.scale, 1, 6)
+			//cy += row + m
 			gui.Label(rl.NewRectangle(m, cy, 0, row), "Height:")
 			c.height = gui.Spinner(rl.NewRectangle(w/2-m, cy, w/2-m, row), c.height, 9, 50)
 			cy += row + m
