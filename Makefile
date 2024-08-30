@@ -7,16 +7,17 @@ BINARY=raylib-go-mines
 VERSION=`git describe --tags | cut -d- -f1`
 
 # Setup the -ldflags option for go build here, interpolate the variable values
-LDFLAGS=-ldflags "-w -s -X main.version=${VERSION}"
+LDFLAGSANY=-ldflags "-w -s -X main.version=${VERSION}"
+LDFLAGSWIN=-ldflags "-w -s -X main.version=${VERSION} -H=windowsgui"
 
 # Builds the project
 build:
-	go build ${LDFLAGS} -o ${BINARY}
-	CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build ${LDFLAGS} -o ${BINARY}.exe
+	go build ${LDFLAGSANY} -o ${BINARY}
+	CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build ${LDFLAGSWIN} -o ${BINARY}.exe
 
 # Runs the project
 run:
-	go run ${LDFLAGS} .
+	go run .
 
 # Cleans our project: deletes binaries
 clean:
