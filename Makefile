@@ -12,6 +12,7 @@ LDFLAGS=-ldflags "-w -s -X main.version=${VERSION}"
 # Builds the project
 build:
 	go build ${LDFLAGS} -o ${BINARY}
+	CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build ${LDFLAGS} -o ${BINARY}.exe
 
 # Runs the project
 run:
