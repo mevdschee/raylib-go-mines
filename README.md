@@ -23,7 +23,11 @@ First build may take several minutes.
 
 ### Building
 
-To build the software execute:
+In order to install the resource bundler run:
+
+    go install github.com/tc-hib/go-winres@latest
+
+To build the software with bundled resources (see winres) execute:
 
     make
 
