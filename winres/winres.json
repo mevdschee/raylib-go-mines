@@ -1,0 +1,65 @@
+{
+  "RT_GROUP_ICON": {
+    "APP": {
+      "0000": [
+        "../minesicon.png"
+      ]     
+     },
+     "OTHER": {
+      "0000": [
+        "../minesicon_large.png"
+      ]
+    }
+  },
+  "RT_MANIFEST": {
+    "#1": {
+      "0409": {
+        "identity": {
+          "name": "Raylib Go Mines",
+          "version": "1.0.1"
+        },
+        "description": "",
+        "minimum-os": "win7",
+        "execution-level": "as invoker",
+        "ui-access": false,
+        "auto-elevate": false,
+        "dpi-awareness": "system",
+        "disable-theming": false,
+        "disable-window-filtering": false,
+        "high-resolution-scrolling-aware": false,
+        "ultra-high-resolution-scrolling-aware": false,
+        "long-path-aware": false,
+        "printer-driver-isolation": false,
+        "gdi-scaling": false,
+        "segment-heap": false,
+        "use-common-controls-v6": false
+      }
+    }
+  },
+  "RT_VERSION": {
+    "#1": {
+      "0000": {
+        "fixed": {
+          "file_version": "0.0.0.1",
+          "product_version": "1.0.1"
+        },
+        "info": {
+          "0409": {
+            "Comments": "",
+            "CompanyName": "",
+            "FileDescription": "",
+            "FileVersion": "",
+            "InternalName": "",
+            "LegalCopyright": "Maurits van der Schee",
+            "LegalTrademarks": "",
+            "OriginalFilename": "",
+            "PrivateBuild": "",
+            "ProductName": "Raylib Go Mines",
+            "ProductVersion": "1.0.1",
+            "SpecialBuild": ""
+          }
+        }
+      }
+    }
+  }
+}

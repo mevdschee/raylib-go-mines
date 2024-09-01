@@ -22,3 +22,5 @@ go.work
 
 # Binaries
 raylib-go-mines
+# Resources
+*.syso
