@@ -444,7 +444,7 @@ func (g *game) placeBombs(x, y, bombs int) {
 
 func main() {
 	//rl.SetTraceLog(rl.LogError)
-	title := "Raylib Go Mines " + version
+	title := "Raylib Go Mines v" + version
 	c := config{
 		scale:   2,
 		width:   9,
