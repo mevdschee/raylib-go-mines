@@ -27,7 +27,7 @@ In order to install the resource bundler run:
 
     go install github.com/tc-hib/go-winres@latest
 
-To build the software with bundled resources (see winres) execute:
+To build the software with bundled resources execute:
 
     make
 
