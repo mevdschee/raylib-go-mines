@@ -32,3 +32,7 @@ To build the software with bundled resources execute:
     make
 
 First build may take several minutes.
+
+### Links
+
+- [Blog article on TQdev.com](https://tqdev.com/2024-minesweeper-written-in-go-using-raylib)
